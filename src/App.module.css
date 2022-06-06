@@ -1,4 +1,4 @@
-.postList {
+.app {
     width: 90%;
     min-width: 200px;
     max-width: 600px;
@@ -9,4 +9,12 @@
     text-align: center;
     margin-bottom: 20px;
     color: cornflowerblue;
+}
+
+.label {
+    margin-right: 14px;
+}
+
+.filters {
+    margin: 20px 0;
 }
