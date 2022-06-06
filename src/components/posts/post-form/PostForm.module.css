@@ -1,12 +1,8 @@
-.form {
-    margin: 20px auto 0;
-    width: 70%;
+.form input, .form textarea {
+    margin-bottom: 20px;
 }
 
 .form button {
-    width: fit-content;
-}
-
-.form input, .form textarea {
-    margin-bottom: 10px;
+    display: block;
+    margin: 0 auto;
 }
