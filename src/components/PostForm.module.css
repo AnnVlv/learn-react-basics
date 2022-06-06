@@ -1,0 +1,14 @@
+.form {
+    margin: 20px auto 0;
+    width: 50%;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.form button {
+    width: fit-content;
+}
+
+.form input, .form textarea {
+    margin-bottom: 10px;
+}
