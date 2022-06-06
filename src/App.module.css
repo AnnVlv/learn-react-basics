@@ -12,9 +12,11 @@
 }
 
 .label {
-    margin-right: 14px;
+    display: block;
+    margin: 10px 14px 10px 0;
 }
 
 .filters {
+    width: 40%;
     margin: 20px 0;
 }
