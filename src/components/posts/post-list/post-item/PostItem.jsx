@@ -1,9 +1,9 @@
 import React from 'react';
-import Button from './UI/button/Button';
+import Button from '../../../UI/button/Button';
 import classes from './PostItem.module.css';
 
 const PostItem = ({ post, index, deletePost }) => {
-    const { id, title, content } = post;
+    const { title, content } = post;
 
     return (
         <div className={classes.post}>
