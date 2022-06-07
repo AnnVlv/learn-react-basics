@@ -7,7 +7,7 @@ import {SORT_TYPES} from '../Posts';
 const PostFilters = ({ filter, setFilter }) => {
     const sortOptions = [
         { name: 'By title', value: SORT_TYPES.TITLE, },
-        { name: 'By content', value: SORT_TYPES.CONTENT, },
+        { name: 'By content', value: SORT_TYPES.BODY, },
     ];
 
     return (

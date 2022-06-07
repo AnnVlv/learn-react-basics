@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PostForm from './post-form/PostForm';
 import PostFilters from './post-filters/PostFilters';
 import PostList from './post-list/PostList';
@@ -6,18 +6,12 @@ import Modal from '../UI/modal/Modal';
 import Button from '../UI/button/Button';
 import classes from './Posts.module.css';
 import {usePosts} from '../../hooks/usePosts';
-
-const DEFAULT_POSTS = [
-    { id: 1, title: 'JavaScript', content: 'Some info about JavaScript...', },
-    { id: 2, title: 'Python', content: 'Let\'s talk about Python...', },
-    { id: 3, title: 'Goland', content: 'This is the article about Goland...', },
-    { id: 4, title: 'Java', content: 'This is guide how to build REST API with Java...', },
-];
+import PostService from '../../API/PostService';
 
 export const SORT_TYPES = {
     NONE: '',
     TITLE: 'title',
-    CONTENT: 'content',
+    BODY: 'body',
 };
 
 const DEFAULT_FILTER = {
@@ -26,11 +20,22 @@ const DEFAULT_FILTER = {
 };
 
 const Posts = () => {
-    const [posts, setPosts] = useState(DEFAULT_POSTS);
+    const [posts, setPosts] = useState([]);
     const [filter, setFilter] = useState(DEFAULT_FILTER);
     const [modalActive, setModalActive] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const filteredPosts = usePosts(posts, filter.sort, filter.search);
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    const fetchPosts = async () => {
+        setLoading(true);
+        setPosts(await PostService.getAll());
+        setLoading(false);
+    };
 
     const addPost = post => {
         setPosts([
@@ -59,7 +64,10 @@ const Posts = () => {
             <Button onClick={() => setModalActive(true)}>Add post</Button>
 
             <div className={classes.postList}>
-                <PostList posts={filteredPosts} deletePost={deletePost}/>
+                {loading
+                    ? 'Loading posts...'
+                    : <PostList posts={filteredPosts} deletePost={deletePost}/>
+                }
             </div>
         </div>
     );

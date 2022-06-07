@@ -6,7 +6,7 @@ import classes from './PostForm.module.css';
 
 const DEFAULT_POST = {
     title: '',
-    content: '',
+    body: '',
 };
 
 const PostForm = ({ addPost }) => {
@@ -17,7 +17,7 @@ const PostForm = ({ addPost }) => {
 
         addPost({
             title: post.title?.trim(),
-            content: post.content?.trim(),
+            body: post.body?.trim(),
         });
         setPost(DEFAULT_POST);
     };
@@ -26,14 +26,14 @@ const PostForm = ({ addPost }) => {
         setPost({ ...post, title });
     }
 
-    const setPostContent = content => {
-        setPost({ ...post, content });
+    const setPostBody = body => {
+        setPost({ ...post, body });
     }
 
     return (
         <form className={classes.form} onSubmit={addPostHandler}>
             <Input value={post.title} onChange={event => setPostTitle(event.target.value)}/>
-            <Textarea value={post.content} onChange={event => setPostContent(event.target.value)}/>
+            <Textarea value={post.body} onChange={event => setPostBody(event.target.value)}/>
             <Button>Add post</Button>
         </form>
     );
