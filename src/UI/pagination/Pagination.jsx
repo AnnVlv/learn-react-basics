@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import classes from './Pagination.module.css';
-import {getArray} from '../../../utils/getPageCount';
+import {getArray} from '../../utils/getPageCount';
 
 const Pagination = ({ pageCount, activePage, setPage }) => {
     const pages = useMemo(() => getArray(pageCount), [pageCount]);

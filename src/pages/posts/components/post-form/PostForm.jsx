@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import Input from '../../UI/input/Input';
-import Textarea from '../../UI/textarea/Textarea';
-import Button from '../../UI/button/Button';
+import Input from '../../../../UI/input/Input';
+import Textarea from '../../../../UI/textarea/Textarea';
+import Button from '../../../../UI/button/Button';
 import classes from './PostForm.module.css';
 
 const DEFAULT_POST = {

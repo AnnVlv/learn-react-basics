@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../../UI/button/Button';
+import Button from '../../../../../UI/button/Button';
 import classes from './PostItem.module.css';
 
 const PostItem = ({ post, deletePost }) => {

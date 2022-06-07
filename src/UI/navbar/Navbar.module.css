@@ -1,0 +1,23 @@
+.navbar {
+    display: flex;
+    height: 55px;
+    background: lightblue;
+    padding: 0 20px;
+}
+
+.navItem {
+    color: darkblue;
+    padding: 0 20px 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.navItem:hover {
+    background: cadetblue;
+}
+
+.navItem.active {
+    background: lightskyblue;
+}

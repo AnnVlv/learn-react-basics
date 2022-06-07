@@ -1,8 +1,8 @@
 import React from 'react';
-import Input from '../../UI/input/Input';
-import Select from '../../UI/select/Select';
+import {SORT_TYPES} from '../../Posts';
+import Select from '../../../../UI/select/Select';
+import Input from '../../../../UI/input/Input';
 import classes from './PostFilters.module.css';
-import {SORT_TYPES} from '../Posts';
 
 const PostFilters = ({ filter, setFilter }) => {
     const sortOptions = [

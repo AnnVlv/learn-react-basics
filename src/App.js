@@ -1,12 +1,22 @@
 import React from 'react';
+import {BrowserRouter} from 'react-router-dom';
 import classes from './App.module.css';
-import Posts from './components/posts/Posts';
+import Navbar from './UI/navbar/Navbar';
+import AppRouter from "./AppRouter";
+
+const navbarLinks = [
+    { to: '/posts', title: 'Posts', },
+    { to: '/counters', title: 'Counters', },
+];
 
 const App = () => {
     return (
-        <div className={classes.app}>
-            <Posts/>
-        </div>
+        <BrowserRouter>
+            <Navbar links={navbarLinks}/>
+            <div className={classes.app}>
+                <AppRouter/>
+            </div>
+        </BrowserRouter>
     );
 }
 

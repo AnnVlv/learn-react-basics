@@ -1,16 +1,16 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import PostForm from './post-form/PostForm';
-import PostFilters from './post-filters/PostFilters';
-import PostList from './post-list/PostList';
-import Modal from '../UI/modal/Modal';
-import Button from '../UI/button/Button';
-import classes from './Posts.module.css';
-import Loader from '../UI/loader/Loader';
-import Pagination from '../UI/pagination/Pagination';
+import React, {useEffect, useState} from 'react';
+import PostList from './components/post-list/PostList';
+import PostFilters from './components/post-filters/PostFilters';
+import PostForm from './components/post-form/PostForm';
+import Modal from '../../UI/modal/Modal';
+import Button from '../../UI/button/Button';
+import Loader from '../../UI/loader/Loader';
+import Pagination from '../../UI/pagination/Pagination';
+import PostService from '../../API/PostService';
 import {usePosts} from '../../hooks/usePosts';
 import {useFetching} from '../../hooks/useFetching';
-import PostService from '../../API/PostService';
-import {getArray, getPageCount} from '../../utils/getPageCount';
+import {getPageCount} from '../../utils/getPageCount';
+import classes from './Posts.module.css';
 
 export const SORT_TYPES = {
     NONE: '',
