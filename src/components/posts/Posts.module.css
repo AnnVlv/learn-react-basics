@@ -4,6 +4,11 @@
     color: cornflowerblue;
 }
 
+.errorMessage {
+    margin-top: 20px;
+    color: palevioletred;
+}
+
 .loader {
     display: flex;
     justify-content: center;

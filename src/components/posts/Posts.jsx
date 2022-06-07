@@ -7,6 +7,7 @@ import Button from '../UI/button/Button';
 import classes from './Posts.module.css';
 import Loader from '../UI/loader/Loader';
 import {usePosts} from '../../hooks/usePosts';
+import {useFetching} from '../../hooks/useFetching';
 import PostService from '../../API/PostService';
 
 export const SORT_TYPES = {
@@ -24,19 +25,17 @@ const Posts = () => {
     const [posts, setPosts] = useState([]);
     const [filter, setFilter] = useState(DEFAULT_FILTER);
     const [modalActive, setModalActive] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     const filteredPosts = usePosts(posts, filter.sort, filter.search);
+
+    const [fetchPosts, postsLoading, postsError] = useFetching(async () => {
+        const posts = await PostService.getAll();
+        setPosts(posts);
+    });
 
     useEffect(() => {
         fetchPosts();
     }, []);
-
-    const fetchPosts = async () => {
-        setLoading(true);
-        setPosts(await PostService.getAll());
-        setLoading(false);
-    };
 
     const addPost = post => {
         setPosts([
@@ -64,12 +63,15 @@ const Posts = () => {
             </Modal>
             <Button onClick={() => setModalActive(true)}>Add post</Button>
 
-            <div className={classes.postList}>
-                {loading
-                    ? <div className={classes.loader}><Loader/></div>
-                    : <PostList posts={filteredPosts} deletePost={deletePost}/>
-                }
-            </div>
+            {postsError
+                ? <div className={classes.errorMessage}>{postsError}</div>
+                : <div className={classes.postList}>
+                    {postsLoading
+                        ? <div className={classes.loader}><Loader/></div>
+                        : <PostList posts={filteredPosts} deletePost={deletePost}/>
+                    }
+                </div>
+            }
         </div>
     );
 };
