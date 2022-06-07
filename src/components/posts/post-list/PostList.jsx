@@ -8,10 +8,9 @@ const PostList = ({ posts, deletePost }) => {
 
     return (
         <div>
-            {posts.map((post, index) =>
+            {posts.map((post) =>
                 <PostItem
                     key={post.id}
-                    index={index + 1}
                     post={post}
                     deletePost={deletePost}
                 />

@@ -18,3 +18,8 @@
 .postList {
     margin-top: 20px;
 }
+
+.pagination {
+    width: 90%;
+    margin: 20px auto;
+}

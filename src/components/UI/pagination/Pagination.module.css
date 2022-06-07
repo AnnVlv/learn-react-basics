@@ -1,0 +1,22 @@
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.page {
+    cursor: pointer;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    margin-right: 5px;
+    border-radius: 50%;
+    background: cadetblue;
+    width: 25px;
+    height: 25px;
+    margin-bottom: 2px;
+}
+
+.page.active {
+    background: darkslategrey;
+}
