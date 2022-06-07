@@ -1,10 +1,11 @@
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import PostForm from './post-form/PostForm';
 import PostFilters from './post-filters/PostFilters';
 import PostList from './post-list/PostList';
 import Modal from '../UI/modal/Modal';
 import Button from '../UI/button/Button';
 import classes from './Posts.module.css';
+import {usePosts} from '../../hooks/usePosts';
 
 const DEFAULT_POSTS = [
     { id: 1, title: 'JavaScript', content: 'Some info about JavaScript...', },
@@ -29,21 +30,7 @@ const Posts = () => {
     const [filter, setFilter] = useState(DEFAULT_FILTER);
     const [modalActive, setModalActive] = useState(false);
 
-    const sortedPosts = useMemo(() => {
-        if (!filter.sort) {
-            return posts;
-        }
-
-        return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-    }, [posts, filter.sort]);
-
-    const sortedAndSearchedPosts = useMemo(() => {
-        if (!filter.search) {
-            return sortedPosts;
-        }
-
-        return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.search.toLowerCase()));
-    }, [sortedPosts, filter.search]);
+    const filteredPosts = usePosts(posts, filter.sort, filter.search);
 
     const addPost = post => {
         setPosts([
@@ -72,7 +59,7 @@ const Posts = () => {
             <Button onClick={() => setModalActive(true)}>Add post</Button>
 
             <div className={classes.postList}>
-                <PostList posts={sortedAndSearchedPosts} deletePost={deletePost}/>
+                <PostList posts={filteredPosts} deletePost={deletePost}/>
             </div>
         </div>
     );
