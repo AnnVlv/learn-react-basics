@@ -4,6 +4,12 @@
     color: cornflowerblue;
 }
 
+.loader {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
 .postList {
     margin-top: 20px;
 }

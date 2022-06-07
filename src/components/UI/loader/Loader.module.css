@@ -1,0 +1,17 @@
+.loader {
+    width: 80px;
+    height: 80px;
+    border: 5px dashed darkblue;
+    border-radius: 50%;
+    animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg) scale(0.8);
+    }
+
+    to {
+        transform: rotate(360deg) scale(1.2);
+    }
+}

@@ -5,6 +5,7 @@ import PostList from './post-list/PostList';
 import Modal from '../UI/modal/Modal';
 import Button from '../UI/button/Button';
 import classes from './Posts.module.css';
+import Loader from '../UI/loader/Loader';
 import {usePosts} from '../../hooks/usePosts';
 import PostService from '../../API/PostService';
 
@@ -65,7 +66,7 @@ const Posts = () => {
 
             <div className={classes.postList}>
                 {loading
-                    ? 'Loading posts...'
+                    ? <div className={classes.loader}><Loader/></div>
                     : <PostList posts={filteredPosts} deletePost={deletePost}/>
                 }
             </div>
