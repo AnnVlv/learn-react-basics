@@ -5,6 +5,7 @@ import PostForm from './components/post-form/PostForm';
 import Modal from '../../UI/modal/Modal';
 import Button from '../../UI/button/Button';
 import Loader from '../../UI/loader/Loader';
+import Select from '../../UI/select/Select';
 import PostService from '../../API/PostService';
 import {usePosts} from '../../hooks/usePosts';
 import {useFetching} from '../../hooks/useFetching';
@@ -24,11 +25,18 @@ const DEFAULT_FILTER = {
 };
 
 const Posts = () => {
+    const postsFooter = useRef();
+
+    const pageOptions = [
+        { value: 5, name: 5, },
+        { value: 10, name: 10, },
+    ];
+
     const [posts, setPosts] = useState([]);
     const [filter, setFilter] = useState(DEFAULT_FILTER);
     const [modalActive, setModalActive] = useState(false);
 
-    const [limit] = useState(5);
+    const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
     const [pageCount, setPageCount] = useState(0);
 
@@ -42,8 +50,6 @@ const Posts = () => {
         setPageCount(getPageCount(postTotalCount, limit));
     });
 
-    const postsFooter = useRef();
-
     useObserver(postsLoading, page + 1 <= pageCount, postsFooter, () => {
         setPage(page + 1);
     });
@@ -51,6 +57,11 @@ const Posts = () => {
     useEffect(() => {
         fetchPosts();
     }, [page]);
+
+    const setLimitHandler = event => {
+        setLimit(event.target.value);
+        setPage(1);
+    };
 
     const addPost = post => {
         setPosts([
@@ -72,6 +83,11 @@ const Posts = () => {
         <div>
             <h1 className={classes.title}>Posts</h1>
             <PostFilters filter={filter} setFilter={setFilter}/>
+
+            <div className={classes.perPage}>
+                <label className={classes.label}>Per page:</label>
+                <Select options={pageOptions} value={limit} onChange={setLimitHandler}/>
+            </div>
 
             <Modal title="Add post" active={modalActive} closeModal={() => setModalActive(false)}>
                 <PostForm addPost={addPost}/>

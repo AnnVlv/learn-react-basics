@@ -4,6 +4,15 @@
     color: cornflowerblue;
 }
 
+.perPage {
+    margin-bottom: 20px;
+}
+
+.label {
+    display: block;
+    margin: 10px 14px 10px 0;
+}
+
 .errorMessage {
     margin-top: 20px;
     color: palevioletred;
