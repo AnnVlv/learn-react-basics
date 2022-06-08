@@ -8,6 +8,11 @@ const PostItem = ({ post, deletePost }) => {
 
     const { id, title, body } = post;
 
+    const deletePostHandler = event => {
+        event.stopPropagation();
+        deletePost(post.id);
+    };
+
     return (
         <div className={classes.post} onClick={() => navigate(`/posts/${id}`)}>
             <div>
@@ -15,7 +20,7 @@ const PostItem = ({ post, deletePost }) => {
                 <div>{ body }</div>
             </div>
             <div>
-                <Button onClick={() => deletePost(post.id)}>Delete</Button>
+                <Button onClick={deletePostHandler}>Delete</Button>
             </div>
         </div>
     );

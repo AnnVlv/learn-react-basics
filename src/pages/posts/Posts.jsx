@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PostList from './components/post-list/PostList';
 import PostFilters from './components/post-filters/PostFilters';
 import PostForm from './components/post-form/PostForm';
 import Modal from '../../UI/modal/Modal';
 import Button from '../../UI/button/Button';
 import Loader from '../../UI/loader/Loader';
-import Pagination from '../../UI/pagination/Pagination';
 import PostService from '../../API/PostService';
 import {usePosts} from '../../hooks/usePosts';
 import {useFetching} from '../../hooks/useFetching';
@@ -34,13 +33,33 @@ const Posts = () => {
 
     const filteredPosts = usePosts(posts, filter.sort, filter.search);
 
-    const [fetchPosts, postsLoading, postsError] = useFetching(async () => {
+    const [fetchPosts, postsLoading] = useFetching(async () => {
         const response = await PostService.getAll(limit, page);
-        setPosts(response.data);
+        setPosts([...posts, ...response.data]);
 
         const postTotalCount = response.headers['x-total-count'];
         setPageCount(getPageCount(postTotalCount, limit));
     });
+
+    const footer = useRef();
+    const observer = useRef();
+
+    useEffect(() => {
+        if (postsLoading) {
+            return;
+        }
+
+        if (observer?.current) {
+            observer.current.disconnect();
+        }
+
+        observer.current = new IntersectionObserver(([entry], observer) => {
+            if (entry.isIntersecting && page + 1 <= pageCount) {
+                setPage(page + 1);
+            }
+        });
+        observer.current.observe(footer.current);
+    }, [postsLoading]);
 
     useEffect(() => {
         fetchPosts();
@@ -72,21 +91,12 @@ const Posts = () => {
             </Modal>
             <Button onClick={() => setModalActive(true)}>Add post</Button>
 
-            {postsError
-                ? <div className={classes.errorMessage}>{postsError}</div>
-                : <div className={classes.postList}>
-                    {postsLoading
-                        ? <div className={classes.loader}><Loader/></div>
-                        :
-                        <div>
-                            <PostList posts={filteredPosts} deletePost={deletePost}/>
-                            <div className={classes.pagination}>
-                                <Pagination pageCount={pageCount} activePage={page} setPage={setPage}/>
-                            </div>
-                        </div>
-                    }
-                </div>
-            }
+            <div className={classes.postList}>
+                <PostList posts={filteredPosts} deletePost={deletePost}/>
+                <div className={classes.postsListFooter} ref={footer}/>
+            </div>
+
+            {postsLoading && <div className={classes.loader}><Loader/></div>}
         </div>
     );
 };
