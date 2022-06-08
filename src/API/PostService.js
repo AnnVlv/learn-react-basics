@@ -12,7 +12,11 @@ export default class PostService {
         });
     }
 
-    static async getById(id) {
-        return await axios.get(`${API_URL}/posts/${id}`);
+    static async getById(postId) {
+        return await axios.get(`${API_URL}/posts/${postId}`);
+    }
+
+    static async getComments(postId) {
+        return await axios.get(`${API_URL}/posts/${postId}/comments`);
     }
 }
