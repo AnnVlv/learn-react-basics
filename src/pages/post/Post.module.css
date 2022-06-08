@@ -1,0 +1,16 @@
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: cornflowerblue;
+}
+
+.errorMessage {
+    margin-top: 20px;
+    color: palevioletred;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}

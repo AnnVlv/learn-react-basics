@@ -11,4 +11,8 @@ export default class PostService {
             },
         });
     }
+
+    static async getById(id) {
+        return await axios.get(`${API_URL}/posts/${id}`);
+    }
 }

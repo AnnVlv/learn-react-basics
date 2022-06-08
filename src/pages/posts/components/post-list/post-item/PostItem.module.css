@@ -1,4 +1,5 @@
 .post {
+    cursor: pointer;
     padding: 20px;
     border: 2px dashed cadetblue;
     display: flex;
