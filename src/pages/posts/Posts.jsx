@@ -8,6 +8,7 @@ import Loader from '../../UI/loader/Loader';
 import PostService from '../../API/PostService';
 import {usePosts} from '../../hooks/usePosts';
 import {useFetching} from '../../hooks/useFetching';
+import {useObserver} from '../../hooks/useObserver';
 import {getPageCount} from '../../utils/getPageCount';
 import classes from './Posts.module.css';
 
@@ -41,25 +42,11 @@ const Posts = () => {
         setPageCount(getPageCount(postTotalCount, limit));
     });
 
-    const footer = useRef();
-    const observer = useRef();
+    const postsFooter = useRef();
 
-    useEffect(() => {
-        if (postsLoading) {
-            return;
-        }
-
-        if (observer?.current) {
-            observer.current.disconnect();
-        }
-
-        observer.current = new IntersectionObserver(([entry], observer) => {
-            if (entry.isIntersecting && page + 1 <= pageCount) {
-                setPage(page + 1);
-            }
-        });
-        observer.current.observe(footer.current);
-    }, [postsLoading]);
+    useObserver(postsLoading, page + 1 <= pageCount, postsFooter, () => {
+        setPage(page + 1);
+    });
 
     useEffect(() => {
         fetchPosts();
@@ -93,7 +80,7 @@ const Posts = () => {
 
             <div className={classes.postList}>
                 <PostList posts={filteredPosts} deletePost={deletePost}/>
-                <div className={classes.postsListFooter} ref={footer}/>
+                <div className={classes.postsListFooter} ref={postsFooter}/>
             </div>
 
             {postsLoading && <div className={classes.loader}><Loader/></div>}
