@@ -21,3 +21,13 @@
 .navItem.active {
     background: lightskyblue;
 }
+
+.logout {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.logout:hover {
+    background: transparent;
+}

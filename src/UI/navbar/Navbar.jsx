@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {NavLink} from 'react-router-dom';
 import classes from './Navbar.module.css';
+import {AuthContext} from '../../context';
 
 const Navbar = ({ links }) => {
+    const {isAuth, setIsAuth} = useContext(AuthContext);
+
     return (
         <div className={classes.navbar}>
             {links.map(link =>
@@ -14,6 +17,15 @@ const Navbar = ({ links }) => {
                     {link.title}
                 </NavLink>
             )}
+
+            {isAuth &&
+                <span
+                    className={[classes.navItem, classes.logout].join(' ')}
+                    onClick={() => setIsAuth(false)}
+                >
+                    Logout
+                </span>
+            }
         </div>
     );
 };
