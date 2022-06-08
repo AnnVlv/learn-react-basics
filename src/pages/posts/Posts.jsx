@@ -44,13 +44,14 @@ const Posts = () => {
 
     const [fetchPosts, postsLoading] = useFetching(async () => {
         const response = await PostService.getAll(limit, page);
+
         setPosts([...posts, ...response.data]);
 
         const postTotalCount = response.headers['x-total-count'];
         setPageCount(getPageCount(postTotalCount, limit));
     });
 
-    useObserver(postsLoading, page + 1 <= pageCount, postsFooter, () => {
+    useObserver(!postsLoading, page + 1 <= pageCount, postsFooter, () => {
         setPage(page + 1);
     });
 

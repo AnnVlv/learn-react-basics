@@ -1,10 +1,10 @@
 import {useRef, useEffect} from 'react';
 
-export const useObserver = (postsLoading, condition, element, callback) => {
+export const useObserver = (canCall, condition, element, callback) => {
     const observer = useRef();
 
     useEffect(() => {
-        if (postsLoading) {
+        if (!canCall) {
             return;
         }
 
@@ -18,5 +18,5 @@ export const useObserver = (postsLoading, condition, element, callback) => {
             }
         });
         observer.current.observe(element.current);
-    }, [postsLoading]);
+    }, [canCall]);
 };
